@@ -10,22 +10,25 @@ on:
   workflow_dispatch:
 
 jobs:
+
   build:
 
     runs-on: windows-latest
-    
 
     steps:
-    - uses: actions/upload-artifact@v4
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-  
-    - name: Restore dependencies
-      run: dotnet restore
-      
-    - name: Build
-      run: dotnet build --no-restore
+
+      - uses: actions/checkout@v4
+
+      - run: dotnet build -c Release
+
+      - run: dotnet publish
+
+      - uses: actions/upload-artifact@v4
+
+        with:
+
+          name: ultgt2downloader
+
+          path: ./bin/Release/net8.0-windows10.0.17763.0
+
       
